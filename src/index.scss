@@ -1,0 +1,79 @@
+$body-bg: #febd6d;
+$body-color: white;
+$light-brown: #2e1a0050;
+$dark-brown: #2e1a00;
+
+.search-bar {
+  background-color: $light-brown;
+  box-sizing: content-box;
+  align-items: center;
+  padding: 1ch;
+  margin: 2ch 0;
+  border: 3px inset transparent;
+
+  input[type="search"] {
+    padding: 1.5ch;
+    border: none !important;
+    background-color: transparent;
+    flex: 1;
+
+    &:focus {
+      outline: none;
+    }
+  }
+  &:focus-within {
+    border-color: $light-brown;
+  }
+}
+::placeholder {
+  color: white;
+}
+
+.shop-card {
+  & > div {
+    height: 20rem;
+    background: $dark-brown;
+    grid-template-rows: 3fr 1fr;
+  }
+
+  .card-details {
+    background-color: white;
+
+    color: $dark-brown;
+  }
+  .card-img {
+    overflow: hidden;
+
+    img,
+    svg {
+      max-height: 100%;
+      max-width: 100%;
+      // mix-blend-mode: luminosity;
+    }
+  }
+  button svg {
+    fill: $dark-brown;
+  }
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.left-0 {
+  left: 0;
+}
+.right-0 {
+  right: 0;
+}
+.top-vh {
+  top: 100vh;
+}
+.cart-store {
+  transition: top 0.5s ease-in-out;
+}
+.bg-opacity-20 {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+@import "~bootstrap/scss/bootstrap.scss";
