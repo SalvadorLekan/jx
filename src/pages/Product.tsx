@@ -15,95 +15,102 @@ function Product(props: ProductPropsType) {
   );
   if (data)
     return (
-      <div className="container row bg-white text-success mx-auto min-vh-100">
-        <div className="col-md-6 p-4">
-          <img
-            src={data.productMedia[0] || placeholder}
-            alt=""
-            className="img-fluid"
-          />
-        </div>
+      <div className="fixed top-0 vh-100 vw-100 bg-opacity-20 d-flex justify-content-center align-items-center">
         <div
-          className="col-md-6 p-4 d-flex justify-content-between align-items-center"
-          style={{ flexDirection: "column" }}
+          className="container row bg-white text-success align-items-center"
+          style={{ height: "80vh", overflow: "scroll", overflowX: "hidden" }}
         >
-          <div id="product-name" className=" display-4">
-            {data.productName}
+          <div className="col-md-6 p-4 d-flex justify-content-center align-items-center">
+            <img
+              src={data.productMedia[0] || placeholder}
+              alt=""
+              className="img-fluid"
+            />
           </div>
-          <div id="product-description">{data.productDescription}</div>
-          <div id="product-price">
-            {props.currency + " " + data.productPrice}
-          </div>
+          <div
+            className="col-md-6 p-4 d-grid justify-content-between align-items-center"
+            style={{ gap: "5ch" }}
+          >
+            <div id="product-name" className="display-3">
+              {data.productName}
+            </div>
+            <div id="product-description">{data.productDescription}</div>
+            <div id="product-price">
+              {props.currency + " " + data.productPrice}
+            </div>
 
-          {!data.isQuantityLimited ? (
-            <form
-              className="d-flex justify-content-between align-items-center"
-              style={{ flexDirection: "column", height: "50%" }}
-            >
-              <fieldset className="row" style={{ width: "20ch" }}>
-                <button
-                  onClick={() => setinputNumber((number) => number - 1 || 1)}
-                  type="button"
-                  className="btn col-4 btn-outline-success"
-                >
-                  -
-                </button>
-                <input
-                  className="col-4 btn btn-outline-success"
-                  type="number"
-                  name="amount"
-                  id="amount"
-                  min="1"
-                  value={inputNumber}
-                  onChange={(e) =>
-                    setinputNumber(parseInt(e.target.value) || 1)
-                  }
-                />
-                <button
-                  onClick={() => setinputNumber((number) => number + 1 || 1)}
-                  type="button"
-                  className="col-4 btn btn-outline-success"
-                >
-                  +
-                </button>
-              </fieldset>
-              {data.id in cartItems ? (
-                <div className="btn btn-outline-success">
-                  Item already in cart
-                </div>
-              ) : (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(
-                      addToCart({
-                        id: data?.id || 0,
-                        orderQuantity: inputNumber,
-                      })
-                    );
-                    history.push(`/shop/${props.match.params.shop}`);
-                  }}
-                  type="submit"
-                  className="btn btn-outline-success"
-                >
-                  Add to cart
-                </button>
-              )}
-            </form>
-          ) : data.id in cartItems ? (
-            <div className="btn btn-outline-success">Item already in cart</div>
-          ) : (
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(addToCart({ id: data?.id || 0, orderQuantity: 1 }));
-                history.push(`/shop/${props.match.params.shop}`);
-              }}
-              className="btn btn-outline-success"
-            >
-              Order Service
-            </button>
-          )}
+            {!data.isQuantityLimited ? (
+              <form
+                className="d-grid justify-content-between align-items-center"
+                style={{ gap: "4ch" }}
+              >
+                <fieldset className="row" style={{ width: "20ch" }}>
+                  <button
+                    onClick={() => setinputNumber((number) => number - 1 || 1)}
+                    type="button"
+                    className="btn col-4 btn-outline-success"
+                  >
+                    -
+                  </button>
+                  <input
+                    className="col-4 btn btn-outline-success"
+                    type="number"
+                    name="amount"
+                    id="amount"
+                    min="1"
+                    value={inputNumber}
+                    onChange={(e) =>
+                      setinputNumber(parseInt(e.target.value) || 1)
+                    }
+                  />
+                  <button
+                    onClick={() => setinputNumber((number) => number + 1 || 1)}
+                    type="button"
+                    className="col-4 btn btn-outline-success"
+                  >
+                    +
+                  </button>
+                </fieldset>
+                {cartItems[data.id] ? (
+                  <div className="btn btn-outline-success">
+                    Item already in cart
+                  </div>
+                ) : (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(
+                        addToCart({
+                          id: data?.id || 0,
+                          orderQuantity: inputNumber,
+                        })
+                      );
+                      history.push(`/shop/${props.match.params.shop}`);
+                    }}
+                    type="submit"
+                    className="btn btn-outline-success"
+                  >
+                    Add to cart
+                  </button>
+                )}
+              </form>
+            ) : cartItems[data.id] ? (
+              <div className="btn btn-outline-success">
+                Item already in cart
+              </div>
+            ) : (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(addToCart({ id: data?.id || 0, orderQuantity: 1 }));
+                  history.push(`/shop/${props.match.params.shop}`);
+                }}
+                className="btn btn-outline-success"
+              >
+                Order Service
+              </button>
+            )}
+          </div>
         </div>
       </div>
     );

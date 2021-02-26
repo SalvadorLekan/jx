@@ -12,7 +12,7 @@ function StoreItems({
   query?: string;
 }) {
   return (
-    <div id="store-items" className="row">
+    <div id="store-items" className="row container mx-auto">
       {items
         ?.filter((item) =>
           item.productName

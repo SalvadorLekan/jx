@@ -23,9 +23,13 @@ function Header({
 
   let dispatch = useDispatch();
   return (
-    <header className="">
+    <header className="px-4 mx-auto" style={{ maxWidth: 1600 }}>
       <nav className="nav-salv d-flex justify-content-between align-items-start py-3">
-        <NavLink className="nav-logo p-1" to={"/shop/" + slug}>
+        <NavLink
+          className="nav-logo p-1"
+          to={"/shop/" + slug}
+          style={{ zIndex: 9, position: "relative" }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -51,6 +55,7 @@ function Header({
         <div className="nav-right">
           <button
             className="d-none btn d-md-inline-block"
+            style={{ zIndex: 9, position: "relative" }}
             onClick={() => dispatch(openCart())}
           >
             <svg

@@ -1,37 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Loader from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import Product from "../pages/Product";
 import Shop from "../pages/Shop";
+import { RootState } from "../toolkit";
+import { fetchServerResponse } from "../toolkit/slices/shop";
 import Cart from "./Cart";
 import Header from "./Header";
 import SMC from "./SMC";
 
-let initialState: StoreResponse | undefined;
-
 function ShopShell(props: ShellProps) {
-  const [loading, setLoading] = useState(true);
-  const [shop, setShop] = useState(initialState);
+  const { loading, shop } = useSelector((state: RootState) => ({
+    loading: state.shop.loading,
+    shop: state.shop.serverResponse,
+  }));
   let match = useRouteMatch();
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetch(
-      `https://manifest-salesapi.herokuapp.com/shops/${props.match.params.shop}`
-    )
-      .then((data) => data.json())
-      .then((data: StoreResponse) => {
-        setLoading(false);
-        setShop(data);
-      });
+    dispatch(fetchServerResponse(props.match.params.shop));
     return () => {};
-  }, [props.match.params.shop]);
+  }, [props.match.params.shop, dispatch]);
 
   if (loading)
     return (
       <div className="d-flex container vh-100 justify-content-center align-items-center">
-        <Loader type="Puff" color="#00BFFF" height={80} width={80} />
+        <Loader type="Puff" color="#00BFFF" height={100} width={100} />
       </div>
     );
-  if (shop?.data)
+  if (shop.data)
     return (
       <>
         <Header
@@ -44,7 +41,6 @@ function ShopShell(props: ShellProps) {
           <Route
             path={`${match.path}/product/:item`}
             render={(props) => {
-              // this works
               let shopData = shop.data as ShopData;
               return (
                 <Product

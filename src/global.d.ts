@@ -34,10 +34,10 @@ interface StoreResponse {
   data?: ShopData;
 }
 
-type TopDistance = "0" | "vh";
+type LeftDistance = "0" | "vw";
 
 interface ShellProps {
-  match: { params: { product?: string; shop?: string } };
+  match: { params: { product?: string; shop: string } };
 }
 
 type ProductPropsType = {

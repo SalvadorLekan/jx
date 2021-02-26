@@ -64,6 +64,9 @@ $dark-brown: #2e1a00;
 .left-0 {
   left: 0;
 }
+.left-vw {
+  left: 120vw;
+}
 .right-0 {
   right: 0;
 }
@@ -71,9 +74,9 @@ $dark-brown: #2e1a00;
   top: 100vh;
 }
 .cart-store {
-  transition: top 0.5s ease-in-out;
+  transition: left 0.5s ease-in-out;
 }
 .bg-opacity-20 {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0);
 }
 @import "~bootstrap/scss/bootstrap.scss";
