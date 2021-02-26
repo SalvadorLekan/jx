@@ -17,17 +17,20 @@ function Cart() {
       <div
         className="p-4 cart-list d-flex col-md-8 col-xl-5 col-xxl-4 vh-100 bg-success align-items-start"
         onClick={(e) => e.stopPropagation()}
+        style={{ flexDirection: "column" }}
       >
-        {cartItems.reduce(
-          (prev, curr, ind) => {
-            return curr
-              ? [...prev, <CartItem id={ind} key={ind} count={curr} />]
-              : [...prev];
-          },
-          [<></>]
-        )}
         <div onClick={() => dispatch(closeCart())} className="btn btn-success">
           x
+        </div>
+        <div>
+          {cartItems.reduce(
+            (prev, curr, ind) => {
+              return curr
+                ? [...prev, <CartItem id={ind} key={ind} count={curr} />]
+                : [...prev];
+            },
+            [<></>]
+          )}
         </div>
       </div>
     </div>

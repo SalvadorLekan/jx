@@ -5,6 +5,7 @@ import Product from "../pages/Product";
 import Shop from "../pages/Shop";
 import Cart from "./Cart";
 import Header from "./Header";
+import SMC from "./SMC";
 
 let initialState: StoreResponse | undefined;
 
@@ -63,6 +64,7 @@ function ShopShell(props: ShellProps) {
           </Route>
         </Switch>
         <Cart />
+        <SMC />
       </>
     );
   return <div>No Shop</div>;
