@@ -1,16 +1,16 @@
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../toolkit";
+import { editText } from "../toolkit/slices/search";
 
 function SearchBar({
-  value = "",
-  setValue,
   extraClassName = "",
   onBlur = () => {},
 }: {
-  value?: string;
-  setValue: Function;
   extraClassName?: string;
   onBlur?: Function;
 }) {
+  const search = useSelector((state: RootState) => state.search.param);
+  const dispatch = useDispatch();
   return (
     <div className={`search-bar rounded ${extraClassName}`}>
       <label htmlFor="product">
@@ -31,8 +31,8 @@ function SearchBar({
         name="product"
         id="product"
         placeholder="search by product"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={search}
+        onChange={(e) => dispatch(editText(e.target.value))}
         onBlur={() => onBlur()}
       />
     </div>

@@ -87,8 +87,6 @@ function Header({
         </div>
       </nav>
       <SearchBar
-        value={value}
-        setValue={setValue}
         extraClassName={
           "absolute top-0 left-0 right-0 m-3 d-md-none d-flex " + state
         }

@@ -1,10 +1,15 @@
-$body-bg: #febd6d;
+// $body-bg: #febd6d;
+// $body-color: white;
+// $light-brown: #2e1a0050;
+// $dark-brown: #2e1a00;
+
+$body-bg: #6993ff;
 $body-color: white;
-$light-brown: #2e1a0050;
-$dark-brown: #2e1a00;
+$prim: var(--bs-indigo);
+$dark-prim: var(--bs-purple);
 
 .search-bar {
-  background-color: $light-brown;
+  background-color: $prim;
   box-sizing: content-box;
   align-items: center;
   padding: 1ch;
@@ -22,7 +27,7 @@ $dark-brown: #2e1a00;
     }
   }
   &:focus-within {
-    border-color: $light-brown;
+    border-color: $prim;
   }
 }
 ::placeholder {
@@ -32,14 +37,14 @@ $dark-brown: #2e1a00;
 .shop-card {
   & > div {
     height: 20rem;
-    background: $dark-brown;
+    background: $dark-prim;
     grid-template-rows: 3fr 1fr;
   }
 
   .card-details {
     background-color: white;
 
-    color: $dark-brown;
+    color: $dark-prim;
   }
   .card-img {
     overflow: hidden;
@@ -52,7 +57,7 @@ $dark-brown: #2e1a00;
     }
   }
   button svg {
-    fill: $dark-brown;
+    fill: $dark-prim;
   }
 }
 .absolute {
