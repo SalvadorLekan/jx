@@ -3,11 +3,12 @@ import Loader from "react-loader-spinner";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import Product from "../pages/Product";
 import Shop from "../pages/Shop";
+import Cart from "./Cart";
 import Header from "./Header";
 
-let initialState: storeResponse | undefined;
+let initialState: StoreResponse | undefined;
 
-function ShopShell(props: shellProps) {
+function ShopShell(props: ShellProps) {
   const [loading, setLoading] = useState(true);
   const [shop, setShop] = useState(initialState);
   let match = useRouteMatch();
@@ -16,7 +17,7 @@ function ShopShell(props: shellProps) {
       `https://manifest-salesapi.herokuapp.com/shops/${props.match.params.shop}`
     )
       .then((data) => data.json())
-      .then((data: storeResponse) => {
+      .then((data: StoreResponse) => {
         setLoading(false);
         setShop(data);
       });
@@ -26,30 +27,32 @@ function ShopShell(props: shellProps) {
   if (loading)
     return (
       <div className="d-flex container vh-100 justify-content-center align-items-center">
-        <Loader type="Circles" color="#00BFFF" height={80} width={80} />
+        <Loader type="Puff" color="#00BFFF" height={80} width={80} />
       </div>
     );
-  if (shop?.data !== undefined)
+  if (shop?.data)
     return (
       <>
         <Header
-          value=""
-          setValue={() => {}}
           slug={shop.data.storeSlug}
           message={shop.data.welcomeMessage}
           storeName={shop.data.storeName}
-          openCart={() => {}}
+          by={shop.data.business.businessName}
         />
         <Switch>
           <Route
             path={`${match.path}/product/:item`}
-            render={(props) => (
-              <Product
-                currency={shop.data?.storeCurrency || ""}
-                {...props}
-                shopItem={shop.data?.products}
-              />
-            )}
+            render={(props) => {
+              // this works
+              let shopData = shop.data as ShopData;
+              return (
+                <Product
+                  currency={shopData.storeCurrency}
+                  {...props}
+                  shopItem={shopData.products}
+                />
+              );
+            }}
           />
           <Route path={match.path}>
             <Shop
@@ -59,6 +62,7 @@ function ShopShell(props: shellProps) {
             />
           </Route>
         </Switch>
+        <Cart />
       </>
     );
   return <div>No Shop</div>;

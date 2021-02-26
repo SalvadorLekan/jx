@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-let initialState: TopDistance = "vw";
+let initialState: { top: TopDistance } = { top: "vh" };
 let slice = createSlice({
   name: "cartToggle",
   initialState,
   reducers: {
-    openCart(state: TopDistance) {
-      state = "0";
+    openCart(state) {
+      state.top = "0";
     },
     closeCart(state) {
-      state = "vw";
+      state.top = "vh";
     },
   },
 });

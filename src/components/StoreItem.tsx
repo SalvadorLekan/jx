@@ -4,7 +4,7 @@ function StoreItem({
   slug,
   currency,
 }: {
-  item: shopItem;
+  item: ShopItem;
   currency: string;
   slug: string;
 }) {

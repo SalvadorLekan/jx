@@ -1,5 +1,5 @@
-interface shopItem {
-  id?: number;
+interface ShopItem {
+  id: number;
   productName: string;
   productPrice: number;
   productDescription: string;
@@ -8,32 +8,40 @@ interface shopItem {
   isQuantityLimited: boolean;
 }
 
-type storeResponse = {
+interface ShopData {
+  id: number;
+  storeName: string;
+  storeCurrency: string;
+  storeSlug: string;
+  welcomeMessage: string;
+  contact: {
+    whatsapp: string;
+    phoneNumber: string;
+    email: string;
+  };
+  socialMedia?: { [key: string]: string };
+  business: {
+    businessId: number;
+    businessDescription: string;
+    businessName: string;
+  };
+  products: ShopItem[];
+}
+
+interface StoreResponse {
   status: boolean;
   message: string;
-  data?: {
-    id: number;
-    storeName: string;
-    storeCurrency: string;
-    storeSlug: string;
-    welcomeMessage: string;
-    contact: {
-      whatsapp: string;
-      phoneNumber: string;
-      email: string;
-    };
-    socialMedia?: { [key: string]: string };
-    business: {
-      businessId: number;
-      businessDescription: string;
-      businessName: string;
-    };
-    products: shopItem[];
-  };
-};
+  data?: ShopData;
+}
 
-type TopDistance = "0" | "vw";
+type TopDistance = "0" | "vh";
 
-interface shellProps {
+interface ShellProps {
   match: { params: { product?: string; shop?: string } };
 }
+
+type ProductPropsType = {
+  shopItem: ShopItem[];
+  currency: string;
+  match: { params: { item: string; shop: string } };
+};

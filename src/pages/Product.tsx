@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import placeholder from "../components/ImgPlaceHolder.svg";
-function Product(props: {
-  shopItem: shopItem[] | undefined;
-  currency: string;
-  match: { params: { item: string; shop: string } };
-}) {
+import { addToCart } from "../toolkit/slices/CartItems";
+
+function Product(props: ProductPropsType) {
+  let history = useHistory();
+  let dispatch = useDispatch();
   const [inputNumber, setinputNumber] = useState(1);
   let data = props.shopItem?.find(
     (data) => data.productSlug === props.match.params.item
@@ -31,7 +33,7 @@ function Product(props: {
             {props.currency + " " + data.productPrice}
           </div>
 
-          {!data.isQuantityLimited && (
+          {!data.isQuantityLimited ? (
             <form
               className="d-flex justify-content-between align-items-center"
               style={{ flexDirection: "column", height: "50%" }}
@@ -63,15 +65,31 @@ function Product(props: {
                   +
                 </button>
               </fieldset>
-
               <button
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(
+                    addToCart({ id: data?.id || 0, orderQuantity: inputNumber })
+                  );
+                  history.push(`/shop/${props.match.params.shop}`);
+                }}
                 type="submit"
                 className="btn btn-outline-success"
               >
                 Add to cart
               </button>
             </form>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(addToCart({ id: data?.id || 0, orderQuantity: 1 }));
+                history.push(`/shop/${props.match.params.shop}`);
+              }}
+              className="btn btn-outline-success"
+            >
+              Order Service
+            </button>
           )}
         </div>
       </div>

@@ -6,7 +6,7 @@ function StoreItems({
   currency,
   query = "",
 }: {
-  items?: shopItem[];
+  items?: ShopItem[];
   slug: string;
   currency: string;
   query?: string;

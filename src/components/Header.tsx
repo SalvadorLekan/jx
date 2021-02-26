@@ -1,23 +1,27 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { openCart } from "../toolkit/slices/cartToggle";
 
 function Header({
-  value,
-  setValue,
+  value = "",
+  setValue = () => {},
   slug,
   message,
   storeName,
-  openCart,
+  by,
 }: {
-  value: string;
-  setValue: Function;
+  value?: string;
+  setValue?: Function;
   slug: string;
   message: string;
   storeName: string;
-  openCart: Function;
+  by: string;
 }) {
   const [state, setstate] = useState("d-none");
+
+  let dispatch = useDispatch();
   return (
     <header className="">
       <nav className="nav-salv d-flex justify-content-between align-items-start py-3">
@@ -40,14 +44,14 @@ function Header({
             className="hide-scroll"
             style={{ overflow: "hidden", transition: "height 5s ease-in-out" }}
           >
-            <p className="nav-center-owner font-weight-bolder">By Comrule</p>
+            <p className="nav-center-owner font-weight-bolder">By {by}</p>
             <p className="tagline">{message}</p>
           </div>
         </div>
         <div className="nav-right">
           <button
             className="d-none btn d-md-inline-block"
-            onClick={() => openCart}
+            onClick={() => dispatch(openCart())}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
