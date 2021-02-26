@@ -35,17 +35,20 @@ function Cart() {
         onClick={(e) => e.stopPropagation()}
         style={{ gridTemplateRows: "1fr 5fr 1fr" }}
       >
-        {" "}
         <div className="d-flex p-4 align-items-center justify-content-between">
           <button
             onClick={() => dispatch(closeCart())}
             className="btn btn-success"
           >
             x
-          </button>{" "}
+          </button>
         </div>
         <div className="text-success" style={{ overflowY: "scroll" }}>
-          {items.length ? items : <div>No Items In Cart</div>}
+          {items.length ? (
+            items
+          ) : (
+            <div className="text-center">No Items In Cart</div>
+          )}
         </div>
         <div className="d-flex p-4 align-items-center justify-content-between">
           <button
