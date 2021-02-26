@@ -9,8 +9,7 @@ function StoreItem({
   slug: string;
 }) {
   return (
-    <Link className="btn" to={"/shop/" + slug + "/product/" + item.productSlug}>
-      <div className="shop-card col-12 col-md-6 col-lg-4 py-2">
+    <Link className="shop-card col-12 col-md-6 col-lg-4 py-2" to={"/shop/" + slug + "/product/" + item.productSlug}>
         <div className="rounded d-grid">
           <div className="card-img d-flex justify-content-center align-items-center">
             {item.productMedia.length ? (
@@ -77,7 +76,6 @@ function StoreItem({
             </div>
           </div>
         </div>
-      </div>
     </Link>
   );
 }
