@@ -9,8 +9,8 @@ function SMC() {
       style={{
         right: 15,
         bottom: 15,
-        height: "15vmin",
-        width: "30vmin",
+        height: "12vmin",
+        width: "24vmin",
         borderRadius: 99,
       }}
     >

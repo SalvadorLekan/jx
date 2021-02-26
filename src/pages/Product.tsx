@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import placeholder from "../components/ImgPlaceHolder.svg";
+import { RootState } from "../toolkit";
 import { addToCart } from "../toolkit/slices/CartItems";
 
 function Product(props: ProductPropsType) {
+  let cartItems = useSelector((state: RootState) => state.orderReducer);
   let history = useHistory();
   let dispatch = useDispatch();
   const [inputNumber, setinputNumber] = useState(1);
@@ -65,20 +67,31 @@ function Product(props: ProductPropsType) {
                   +
                 </button>
               </fieldset>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  dispatch(
-                    addToCart({ id: data?.id || 0, orderQuantity: inputNumber })
-                  );
-                  history.push(`/shop/${props.match.params.shop}`);
-                }}
-                type="submit"
-                className="btn btn-outline-success"
-              >
-                Add to cart
-              </button>
+              {data.id in cartItems ? (
+                <div className="btn btn-outline-success">
+                  Item already in cart
+                </div>
+              ) : (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(
+                      addToCart({
+                        id: data?.id || 0,
+                        orderQuantity: inputNumber,
+                      })
+                    );
+                    history.push(`/shop/${props.match.params.shop}`);
+                  }}
+                  type="submit"
+                  className="btn btn-outline-success"
+                >
+                  Add to cart
+                </button>
+              )}
             </form>
+          ) : data.id in cartItems ? (
+            <div className="btn btn-outline-success">Item already in cart</div>
           ) : (
             <button
               onClick={(e) => {

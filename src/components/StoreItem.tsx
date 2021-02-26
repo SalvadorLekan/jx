@@ -77,7 +77,7 @@ function StoreItem({
             </div>
           </div>
         </div>
-      </div>{" "}
+      </div>
     </Link>
   );
 }
