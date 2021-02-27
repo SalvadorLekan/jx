@@ -9,6 +9,7 @@ let cc: ReactElement[] = [];
 function Cart() {
   let dispatch = useDispatch();
   const [items, setItems] = useState(cc);
+  const [price, setPrice] = useState(0);
   let { left, cartItems } = useSelector((state: RootState) => ({
     left: state.cartReducer.left,
     cartItems: state.orderReducer,
@@ -16,10 +17,18 @@ function Cart() {
   useEffect(() => {
     setItems(
       cartItems.reduce((prev, curr, ind) => {
-        return curr
-          ? [...prev, <CartItem id={ind} key={ind} count={curr} />]
+        return curr.orderQuantity
+          ? [
+              ...prev,
+              <CartItem id={ind} key={ind} count={curr.orderQuantity} />,
+            ]
           : [...prev];
       }, cc)
+    );
+    setPrice(
+      cartItems.reduce((prev, { orderQuantity, price }) => {
+        return orderQuantity ? prev + orderQuantity * price : prev;
+      }, 0)
     );
     return () => {};
   }, [cartItems]);
@@ -42,6 +51,14 @@ function Cart() {
           >
             x
           </button>
+
+          <b
+            className="d-grid text-success"
+            style={{ gap: "1ch", gridAutoFlow: "column" }}
+          >
+            <span>NGN</span>
+            <span>{price + ".00"}</span>
+          </b>
         </div>
         <div className="text-success" style={{ overflowY: "scroll" }}>
           {items.length ? (

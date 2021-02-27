@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import Product from "../pages/Product";
 import Shop from "../pages/Shop";
+import StoreNotFound from "../pages/StoreNotFound";
 import { RootState } from "../toolkit";
 import { fetchServerResponse } from "../toolkit/slices/shop";
 import Cart from "./Cart";
@@ -63,7 +64,7 @@ function ShopShell(props: ShellProps) {
         <SMC />
       </>
     );
-  return <div>No Shop</div>;
+  return <StoreNotFound />;
 }
 
 export default ShopShell;

@@ -71,7 +71,7 @@ function Product(props: ProductPropsType) {
                     +
                   </button>
                 </fieldset>
-                {cartItems[data.id] ? (
+                {cartItems[data.id]?.orderQuantity ? (
                   <div className="btn btn-outline-success">
                     Item already in cart
                   </div>
@@ -83,6 +83,7 @@ function Product(props: ProductPropsType) {
                         addToCart({
                           id: data?.id || 0,
                           orderQuantity: inputNumber,
+                          price: data?.productPrice,
                         })
                       );
                       history.push(`/shop/${props.match.params.shop}`);
@@ -94,7 +95,7 @@ function Product(props: ProductPropsType) {
                   </button>
                 )}
               </form>
-            ) : cartItems[data.id] ? (
+            ) : cartItems[data.id]?.orderQuantity ? (
               <div className="btn btn-outline-success">
                 Item already in cart
               </div>
@@ -102,7 +103,13 @@ function Product(props: ProductPropsType) {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(addToCart({ id: data?.id || 0, orderQuantity: 1 }));
+                  dispatch(
+                    addToCart({
+                      id: data?.id || 0,
+                      orderQuantity: 1,
+                      price: data?.productPrice,
+                    })
+                  );
                   history.push(`/shop/${props.match.params.shop}`);
                 }}
                 className="btn btn-outline-success"
