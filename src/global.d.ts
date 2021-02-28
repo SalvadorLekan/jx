@@ -45,3 +45,29 @@ type ProductPropsType = {
   currency: string;
   match: { params: { item: string; shop: string } };
 };
+
+type OrderStatus = "initial" | "pending" | "failure" | "success" | "partial";
+
+interface OrderToServer {
+  customerEmail: string;
+  customerName: string;
+  orderAmount: number;
+  orderQuantity: number;
+  storeId: number;
+  productId: number;
+  businessId: number;
+}
+
+interface OrderItemResponse {
+  ref: string;
+  status: boolean;
+  message: string;
+}
+
+interface OrderResponse {
+  status: boolean;
+  message: string;
+  data:
+    | { failed: OrderItemResponse[]; passed: OrderItemResponse[] }
+    | OrderItemResponse[];
+}

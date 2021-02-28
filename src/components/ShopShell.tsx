@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Loader from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
+import Checkout from "../pages/Checkout";
 import Product from "../pages/Product";
 import Shop from "../pages/Shop";
 import StoreNotFound from "../pages/StoreNotFound";
@@ -40,6 +41,12 @@ function ShopShell(props: ShellProps) {
         />
         <Switch>
           <Route
+            path={`${match.path}/checkout`}
+            render={(props) => {
+              return <Checkout {...props} />;
+            }}
+          />
+          <Route
             path={`${match.path}/product/:item`}
             render={(props) => {
               let shopData = shop.data as ShopData;
@@ -60,7 +67,7 @@ function ShopShell(props: ShellProps) {
             />
           </Route>
         </Switch>
-        <Cart />
+        <Cart slug={props.match.params.shop} />
         <SMC />
       </>
     );

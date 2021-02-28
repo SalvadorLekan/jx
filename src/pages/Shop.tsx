@@ -1,7 +1,9 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "../components/SearchBar";
 import StoreItem from "../components/StoreItem";
 import { RootState } from "../toolkit";
+import { init } from "../toolkit/slices/order";
 
 function StoreItems({
   items,
@@ -13,6 +15,11 @@ function StoreItems({
   currency: string;
 }) {
   const query = useSelector((state: RootState) => state.search.param);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(init());
+    return () => {};
+  }, [dispatch]);
   return (
     <div id="store-items" className="row container mx-auto">
       <SearchBar extraClassName="d-none d-md-flex" />

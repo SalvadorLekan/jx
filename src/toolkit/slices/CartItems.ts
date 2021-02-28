@@ -11,7 +11,7 @@ let slice = createSlice({
       else state[v.id] = { orderQuantity: v.orderQuantity, price: v.price };
     },
     clearCart(state) {
-      state = [];
+      state.length = 0;
     },
     removeFromCart(state, action) {
       delete state[action.payload];

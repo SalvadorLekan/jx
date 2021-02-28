@@ -1,12 +1,13 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { RootState } from "../toolkit";
 
 import { closeCart } from "../toolkit/slices/cartToggle";
 import CartItem from "./CartItem";
 
 let cc: ReactElement[] = [];
-function Cart() {
+function Cart({ slug }: { slug: string }) {
   let dispatch = useDispatch();
   const [items, setItems] = useState(cc);
   const [price, setPrice] = useState(0);
@@ -22,7 +23,7 @@ function Cart() {
               ...prev,
               <CartItem id={ind} key={ind} count={curr.orderQuantity} />,
             ]
-          : [...prev];
+          : prev;
       }, cc)
     );
     setPrice(
@@ -42,7 +43,7 @@ function Cart() {
       <div
         className="p-4 cart-list d-grid col-md-8 col-xl-5 col-xxl-4 vh-100 bg-white align-items-start"
         onClick={(e) => e.stopPropagation()}
-        style={{ gridTemplateRows: "1fr 5fr 1fr" }}
+        style={{ gridTemplateRows: "10ch minmax(0, 1fr) 10ch" }}
       >
         <div className="d-flex p-4 align-items-center justify-content-between">
           <button
@@ -60,23 +61,35 @@ function Cart() {
             <span>{price + ".00"}</span>
           </b>
         </div>
-        <div className="text-success" style={{ overflowY: "scroll" }}>
+
+        <div
+          className="text-success"
+          style={{ overflowY: "scroll", maxHeight: "100%" }}
+        >
           {items.length ? (
             items
           ) : (
             <div className="text-center">No Items In Cart</div>
           )}
         </div>
+
         <div className="d-flex p-4 align-items-center justify-content-between">
-          <button
+          <Link
+            to={`/shop/${slug}`}
             onClick={() => dispatch(closeCart())}
             className="btn btn-outline-success"
           >
             Back To Shopping
-          </button>
-          <button disabled={!items.length} className="btn btn-success">
-            Checkout
-          </button>
+          </Link>
+          {items.length && (
+            <Link
+              onClick={() => dispatch(closeCart())}
+              to={`/shop/${slug}/checkout`}
+              className="btn btn-success"
+            >
+              Checkout
+            </Link>
+          )}
         </div>
       </div>
     </div>
