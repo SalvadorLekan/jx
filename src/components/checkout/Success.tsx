@@ -11,7 +11,7 @@ function Success({ shop }: { shop: string }) {
   }, [dispatch]);
   return (
     <div
-      className="container d-flex justify-content-center align-items-center"
+      className="container d-flex justify-content-center align-items-center pb-4"
       style={{ flexDirection: "column" }}
     >
       <img src={success} alt="success" className="img-fluid" />

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Loader from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { composeOrder } from "../api";
+import Failure from "../components/checkout/Failure";
+import NoItems from "../components/checkout/NoItems";
 import Success from "../components/checkout/Success";
 import { RootState } from "../toolkit";
 import { sendOrder } from "../toolkit/slices/order";
@@ -43,8 +45,8 @@ function Checkout(props: ShellProps) {
   if (status === "initial") {
     if (items)
       return (
-        <div className="container">
-          <form onSubmit={(e) => handleSubmit(e)}>
+        <div className="container d-flex justify-content-center align-items-center">
+          <form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: 500 }}>
             <div className="form-group row">
               <label
                 htmlFor="colFormLabelLg"
@@ -52,8 +54,9 @@ function Checkout(props: ShellProps) {
               >
                 Name
               </label>
-              <div className="col-sm-10">
+              <div className="col-sm-10 mb-4">
                 <input
+                  required
                   type="text"
                   className="form-control form-control-lg text-success"
                   name="name"
@@ -70,25 +73,26 @@ function Checkout(props: ShellProps) {
               >
                 Email
               </label>
-              <div className="col-sm-10">
+              <div className="col-sm-10 mb-4">
                 <input
+                  required
                   type="email"
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="form-control form-control-lg text-success"
+                  className="form-control form-control-lg text-primary"
                   id="colFormLabelLg"
                   placeholder="Email"
                 />
               </div>
             </div>
-            <button className="btn mx-auto d-flex my-4 btn-outline-success">
+            <button className="btn mx-auto d-flex btn-outline-primary">
               Place Order
             </button>
           </form>
         </div>
       );
-    return <div>initial blank</div>;
+    return <NoItems />;
   }
   if (status === "pending")
     return (
@@ -96,7 +100,7 @@ function Checkout(props: ShellProps) {
         <Loader type="TailSpin" width={120} height={120} />
       </div>
     );
-  if (status === "failure") return <div>failure</div>;
+  if (status === "failure") return <Failure />;
   if (status === "partial") return <div>partial</div>;
   return <Success shop={shop} />;
 }

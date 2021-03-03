@@ -5,17 +5,11 @@ import SearchBar from "./SearchBar";
 import { openCart } from "../toolkit/slices/cartToggle";
 
 function Header({
-  value = "",
-  setValue = () => {},
   slug,
-  message,
   storeName,
   by,
 }: {
-  value?: string;
-  setValue?: Function;
   slug: string;
-  message: string;
   storeName: string;
   by: string;
 }) {
@@ -48,8 +42,13 @@ function Header({
             className="hide-scroll"
             style={{ overflow: "hidden", transition: "height 5s ease-in-out" }}
           >
-            <p className="nav-center-owner font-weight-bolder">By {by}</p>
-            <p className="tagline">{message}</p>
+            <NavLink
+              to={`/shop/${slug}/about`}
+              className="nav-center-owner font-weight-bolder text-white"
+            >
+              By {by}
+            </NavLink>
+            {/* <p className="tagline">{message}</p> */}
           </div>
         </div>
         <div className="nav-right">

@@ -10,6 +10,7 @@ import { RootState } from "../toolkit";
 import { fetchServerResponse } from "../toolkit/slices/shop";
 import Cart from "./Cart";
 import Header from "./Header";
+import About from "../pages/About";
 import SMC from "./SMC";
 
 function ShopShell(props: ShellProps) {
@@ -35,11 +36,13 @@ function ShopShell(props: ShellProps) {
       <>
         <Header
           slug={shop.data.storeSlug}
-          message={shop.data.welcomeMessage}
           storeName={shop.data.storeName}
           by={shop.data.business.businessName}
         />
         <Switch>
+          <Route path={`${match.path}/about`}>
+            <About shop={shop} />
+          </Route>
           <Route
             path={`${match.path}/checkout`}
             render={(props) => {

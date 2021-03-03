@@ -12,7 +12,10 @@ function SearchBar({
   const search = useSelector((state: RootState) => state.search.param);
   const dispatch = useDispatch();
   return (
-    <div className={`search-bar rounded ${extraClassName}`}>
+    <div
+      className={`search-bar rounded ${extraClassName}`}
+      style={{ flexShrink: 1 }}
+    >
       <label htmlFor="product">
         <svg
           xmlns="http://www.w3.org/2000/svg"
